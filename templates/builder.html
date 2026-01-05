@@ -1,0 +1,476 @@
+{% extends "base.html" %}
+
+{% block title %}Builder - {{ project.name }}{% endblock %}
+
+{% block content %}
+<div class="builder-container">
+    <div class="builder-header">
+        <div class="header-left">
+            <a href="{{ url_for('dashboard') }}" class="back-btn">← Back</a>
+            <input type="text" id="projectTitle" value="{{ project.name }}" class="project-title-input">
+            <span class="save-status" id="saveStatus">Saved</span>
+        </div>
+        <div class="header-right">
+            <button id="previewBtn" class="btn-secondary">
+                <span>👁</span> Preview
+            </button>
+            <button id="exportBtn" class="btn-primary">
+                <span>📦</span> Export
+            </button>
+        </div>
+    </div>
+    
+    <div class="builder-workspace" style="flex: 1; display: grid; grid-template-columns: 280px 1fr 300px; gap: 0; overflow: hidden; min-height: 0;">
+        <div class="components-panel">
+            <div class="panel-header">
+                <h3>Builder</h3>
+            </div>
+            
+            <div class="components-list">
+                <!-- Basic Components Section -->
+                <div class="component-section">
+                    <div class="section-header" onclick="toggleSection('basic')">
+                        <span class="section-title">Basic Components</span>
+                        <span class="section-toggle" id="toggle-basic">−</span>
+                    </div>
+                    <div class="section-content" id="section-basic">
+                        <div class="component-item" draggable="true" data-type="hero">
+                            <div class="component-icon">🎯</div>
+                            <div class="component-info">
+                                <div class="component-name">Hero Section</div>
+                                <div class="component-desc">Large header with CTA</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="text">
+                            <div class="component-icon">📝</div>
+                            <div class="component-info">
+                                <div class="component-name">Text Block</div>
+                                <div class="component-desc">Heading and paragraph</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="image">
+                            <div class="component-icon">🖼</div>
+                            <div class="component-info">
+                                <div class="component-name">Image</div>
+                                <div class="component-desc">Responsive image</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="features">
+                            <div class="component-icon">⭐</div>
+                            <div class="component-info">
+                                <div class="component-name">Features Grid</div>
+                                <div class="component-desc">Icon + text cards</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="cta">
+                            <div class="component-icon">🎯</div>
+                            <div class="component-info">
+                                <div class="component-name">Call to Action</div>
+                                <div class="component-desc">Button section</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="gallery">
+                            <div class="component-icon">🎨</div>
+                            <div class="component-info">
+                                <div class="component-name">Gallery</div>
+                                <div class="component-desc">Image grid</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                {% if limits.premium_components %}
+                <!-- Premium Components Section -->
+                <div class="component-section">
+                    <div class="section-header" onclick="toggleSection('premium')">
+                        <span class="section-title">Premium Components ⭐</span>
+                        <span class="section-toggle" id="toggle-premium">−</span>
+                    </div>
+                    <div class="section-content" id="section-premium">
+                        <div class="component-item" draggable="true" data-type="testimonials">
+                            <div class="component-icon">💬</div>
+                            <div class="component-info">
+                                <div class="component-name">Testimonials</div>
+                                <div class="component-desc">Customer reviews</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="pricing">
+                            <div class="component-icon">💰</div>
+                            <div class="component-info">
+                                <div class="component-name">Pricing Table</div>
+                                <div class="component-desc">Plans and prices</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="team">
+                            <div class="component-icon">👥</div>
+                            <div class="component-info">
+                                <div class="component-name">Team Members</div>
+                                <div class="component-desc">Team profiles</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="stats">
+                            <div class="component-icon">📊</div>
+                            <div class="component-info">
+                                <div class="component-name">Statistics</div>
+                                <div class="component-desc">Number counters</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="faq">
+                            <div class="component-icon">❓</div>
+                            <div class="component-info">
+                                <div class="component-name">FAQ</div>
+                                <div class="component-desc">Q&A accordion</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="contact">
+                            <div class="component-icon">📧</div>
+                            <div class="component-info">
+                                <div class="component-name">Contact Form</div>
+                                <div class="component-desc">Email contact</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="newsletter">
+                            <div class="component-icon">📮</div>
+                            <div class="component-info">
+                                <div class="component-name">Newsletter</div>
+                                <div class="component-desc">Email signup</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="logos">
+                            <div class="component-icon">🏢</div>
+                            <div class="component-info">
+                                <div class="component-name">Logo Showcase</div>
+                                <div class="component-desc">Partner logos</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="timeline">
+                            <div class="component-icon">📅</div>
+                            <div class="component-info">
+                                <div class="component-name">Timeline</div>
+                                <div class="component-desc">Event timeline</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="video">
+                            <div class="component-icon">🎥</div>
+                            <div class="component-info">
+                                <div class="component-name">Video</div>
+                                <div class="component-desc">Embed video</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="footer">
+                            <div class="component-icon">⬇️</div>
+                            <div class="component-info">
+                                <div class="component-name">Footer</div>
+                                <div class="component-desc">Page footer</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="navbar">
+                            <div class="component-icon">🔝</div>
+                            <div class="component-info">
+                                <div class="component-name">Navigation Bar</div>
+                                <div class="component-desc">Top menu</div>
+                            </div>
+                        </div>
+                        <div class="component-item" draggable="true" data-type="blog">
+                            <div class="component-icon">📰</div>
+                            <div class="component-info">
+                                <div class="component-name">Blog Grid</div>
+                                <div class="component-desc">Article cards</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="imagetext">
+                            <div class="component-icon">🖼️</div>
+                            <div class="component-info">
+                                <div class="component-name">Image + Text</div>
+                                <div class="component-desc">Side by side</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="callout">
+                            <div class="component-icon">💡</div>
+                            <div class="component-info">
+                                <div class="component-name">Callout Box</div>
+                                <div class="component-desc">Highlighted info</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="progress">
+                            <div class="component-icon">📈</div>
+                            <div class="component-info">
+                                <div class="component-name">Progress Bars</div>
+                                <div class="component-desc">Skills/stats bars</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="social">
+                            <div class="component-icon">🔗</div>
+                            <div class="component-info">
+                                <div class="component-name">Social Links</div>
+                                <div class="component-desc">Social media icons</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="map">
+                            <div class="component-icon">🗺️</div>
+                            <div class="component-info">
+                                <div class="component-name">Map</div>
+                                <div class="component-desc">Embedded map</div>
+                            </div>
+                        </div>
+                        <div class="component-item" draggable="true" data-type="accordion">
+                            <div class="component-icon">📋</div>
+                            <div class="component-info">
+                                <div class="component-name">Accordion</div>
+                                <div class="component-desc">Collapsible panels</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="tabs">
+                            <div class="component-icon">📑</div>
+                            <div class="component-info">
+                                <div class="component-name">Tabs</div>
+                                <div class="component-desc">Tabbed content</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="cards">
+                            <div class="component-icon">🃏</div>
+                            <div class="component-info">
+                                <div class="component-name">Cards Grid</div>
+                                <div class="component-desc">Service cards</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="countdown">
+                            <div class="component-icon">⏱️</div>
+                            <div class="component-info">
+                                <div class="component-name">Countdown</div>
+                                <div class="component-desc">Timer widget</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="quote">
+                            <div class="component-icon">💭</div>
+                            <div class="component-info">
+                                <div class="component-name">Quote Block</div>
+                                <div class="component-desc">Styled quote</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="steps">
+                            <div class="component-icon">🪜</div>
+                            <div class="component-info">
+                                <div class="component-name">Process Steps</div>
+                                <div class="component-desc">Step by step</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="banner">
+                            <div class="component-icon">📢</div>
+                            <div class="component-info">
+                                <div class="component-name">Alert Banner</div>
+                                <div class="component-desc">Announcement bar</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="metrics">
+                            <div class="component-icon">📈</div>
+                            <div class="component-info">
+                                <div class="component-name">Metrics</div>
+                                <div class="component-desc">Number highlights</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="portfolio">
+                            <div class="component-icon">🎨</div>
+                            <div class="component-info">
+                                <div class="component-name">Portfolio Grid</div>
+                                <div class="component-desc">Work showcase</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="columns">
+                            <div class="component-icon">📰</div>
+                            <div class="component-info">
+                                <div class="component-name">Multi-Column</div>
+                                <div class="component-desc">Column layout</div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-item" draggable="true" data-type="separator">
+                            <div class="component-icon">➖</div>
+                            <div class="component-info">
+                                <div class="component-name">Divider</div>
+                                <div class="component-desc">Section break</div>
+                            </div>
+                        </div>
+                        <div class="component-item" draggable="true" data-type="graph">
+                            <div class="component-icon">📊</div>
+                            <div class="component-info">
+                                <div class="component-name">Chart/Graph</div>
+                                <div class="component-desc">Data visualization</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Project Settings Section -->
+                <div class="component-section">
+                    <div class="section-header" onclick="toggleSection('settings')">
+                        <span class="section-title">Project Settings</span>
+                        <span class="section-toggle" id="toggle-settings">−</span>
+                    </div>
+                    <div class="section-content" id="section-settings">
+                        <div style="padding: 0.5rem;">
+                            <button id="themePanelToggle" class="settings-button">
+                                <span>🎨</span> Theme Colors
+                            </button>
+                            <button onclick="clearCanvas()" class="settings-button" style="background: #fee2e2; color: #991b1b;">
+                                <span>🗑️</span> Clear All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="canvas-area">
+            <div id="canvas" class="canvas">
+                <div class="canvas-placeholder">
+                    <div class="placeholder-icon">👆</div>
+                    <p>Drag components here to start building</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="properties-panel" id="propertiesPanel" style="background: white; border-left: 1px solid var(--border); overflow-y: auto; height: 100%;">
+            <div class="panel-header">
+                <h3>Properties</h3>
+                <button id="closePropPanel" class="icon-btn" style="display: none;">×</button>
+            </div>
+            <div id="propertiesContent" class="properties-content">
+                <p class="text-muted">Select a component to edit its properties</p>
+            </div>
+        </div>
+        
+        <div class="theme-panel" id="themePanel" style="display: none; position: fixed; right: 0; top: 80px; width: 320px; height: calc(100vh - 80px); background: white; box-shadow: -4px 0 12px rgba(0,0,0,0.1); z-index: 100; overflow-y: auto;">
+            <div class="panel-header">
+                <h3>Theme Settings</h3>
+                <button id="closeThemePanel" class="icon-btn">×</button>
+            </div>
+            <div class="theme-content">
+                <div class="form-group">
+                    <label>Page Title</label>
+                    <input type="text" id="pageTitle" value="My Website" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>Primary Color</label>
+                    <input type="color" id="primaryColor" value="#0066cc" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>Background</label>
+                    <input type="color" id="backgroundColor" value="#ffffff" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>Text Color</label>
+                    <input type="color" id="textColor" value="#1a1a1a" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>Font Family</label>
+                    <select id="fontFamily" class="form-control">
+                        <option value="system-ui, -apple-system, sans-serif">System Default</option>
+                        <option value="'Inter', sans-serif">Inter (Modern Sans)</option>
+                        <option value="'Roboto', sans-serif">Roboto</option>
+                        <option value="'Open Sans', sans-serif">Open Sans</option>
+                        <option value="'Lato', sans-serif">Lato</option>
+                        <option value="'Montserrat', sans-serif">Montserrat (Bold)</option>
+                        <option value="'Poppins', sans-serif">Poppins (Friendly)</option>
+                        <option value="'Raleway', sans-serif">Raleway (Elegant)</option>
+                        <option value="'Playfair Display', serif">Playfair Display (Serif)</option>
+                        <option value="'Merriweather', serif">Merriweather (Serif)</option>
+                        <option value="'Georgia', serif">Georgia (Classic Serif)</option>
+                        <option value="'Crimson Text', serif">Crimson Text (Serif)</option>
+                        <option value="'Courier New', monospace">Courier New (Mono)</option>
+                        <option value="'Source Code Pro', monospace">Source Code Pro (Mono)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="exportModal" class="modal">
+    <div class="modal-content export-modal">
+        <div class="modal-header">
+            <h2>Export Project</h2>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="export-options">
+            <button class="export-option" data-format="html">
+                <div class="option-icon">📄</div>
+                <div class="option-name">HTML</div>
+                <div class="option-desc">Single HTML file</div>
+            </button>
+            
+            <button class="export-option" data-format="zip">
+                <div class="option-icon">📦</div>
+                <div class="option-name">ZIP Package</div>
+                <div class="option-desc">HTML + CSS + JS</div>
+                {% if not limits.custom_code %}<div class="pro-badge">PRO</div>{% endif %}
+            </button>
+            
+            <button class="export-option" data-format="react">
+                <div class="option-icon">⚛️</div>
+                <div class="option-name">React</div>
+                <div class="option-desc">React component</div>
+                {% if not limits.custom_code %}<div class="pro-badge">PRO</div>{% endif %}
+            </button>
+            
+            <button class="export-option" data-format="vue">
+                <div class="option-icon">💚</div>
+                <div class="option-name">Vue</div>
+                <div class="option-desc">Vue component</div>
+                {% if not limits.custom_code %}<div class="pro-badge">PRO</div>{% endif %}
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="previewModal" class="modal preview-modal">
+    <div class="modal-content preview-content">
+        <div class="modal-header">
+            <h2>Preview</h2>
+            <button class="modal-close">&times;</button>
+        </div>
+        <iframe id="previewFrame" class="preview-frame"></iframe>
+    </div>
+</div>
+
+<script>
+const projectId = {{ project.id }};
+const limits = {{ limits|tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/builder.js') }}"></script>
+{% endblock %}

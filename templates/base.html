@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Website Builder{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="brand">
+                <span class="brand-icon">▲</span>
+                <span class="brand-text">DragMeHome</span>
+            </a>
+            
+            <div class="nav-links">
+                {% if session.get('user_id') %}
+                    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                    <a href="{{ url_for('pricing') }}">Pricing</a>
+                    <span class="user-badge">{{ session.get('username') }}</span>
+                    <a href="{{ url_for('logout') }}" class="btn-secondary">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('pricing') }}">Pricing</a>
+                    <a href="{{ url_for('login') }}">Login</a>
+                    <a href="{{ url_for('register') }}" class="btn-primary">Get Started</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="brand-icon">▲</span>
+                <span>DragMeHome</span>
+            </div>
+            <p class="footer-text">Build beautiful websites with drag and drop</p>
+            <p class="footer-copyright">&copy; 2026 DragMeHome. Professional website builder.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

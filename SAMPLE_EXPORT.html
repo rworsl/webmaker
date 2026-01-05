@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Website - Built with DragMeHome</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: #1a1a1a;
+            background: #ffffff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hero {
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        
+        .section {
+            padding: 4rem 2rem;
+        }
+        
+        h1 { font-size: 3rem; margin-bottom: 1rem; }
+        h2 { font-size: 2rem; margin-bottom: 1rem; }
+        p { font-size: 1.125rem; line-height: 1.6; }
+        
+        .button {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #0066cc, #00a8ff);
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+        
+        .cta-section .button {
+            background: white;
+            color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero" style="background: #f5f5f5;">
+        <div class="container">
+            <h1>Build Amazing Websites</h1>
+            <p>Create professional websites with our drag-and-drop builder. No coding required!</p>
+            <a href="#features" class="button">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" style="background: #f8fafc;">
+        <div class="container">
+            <h2 style="text-align: center;">Why Choose DragMeHome?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Fast & Easy</h3>
+                    <p>Build websites in minutes with our intuitive interface</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Beautiful Design</h3>
+                    <p>Professional templates and components out of the box</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Responsive</h3>
+                    <p>Your websites look perfect on all devices</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Text Section -->
+    <section class="section">
+        <div class="container" style="max-width: 800px; margin: 0 auto;">
+            <h2>About DragMeHome</h2>
+            <p>DragMeHome is a professional drag-and-drop website builder designed for everyone. Whether you're a business owner, designer, or developer, our platform makes it easy to create stunning websites without writing code. With our intuitive interface and powerful features, you can bring your ideas to life in minutes.</p>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Build Your Website?</h2>
+            <p style="margin-bottom: 2rem; opacity: 0.9;">Start creating today with our free plan</p>
+            <a href="#" class="button">Sign Up Free</a>
+        </div>
+    </section>
+
+    <footer style="background: #1a1a1a; color: white; text-align: center; padding: 3rem 2rem;">
+        <div class="container">
+            <p style="color: rgba(255, 255, 255, 0.7);">Built with ❤️ using DragMeHome</p>
+            <p style="margin-top: 1rem; font-size: 0.875rem; color: rgba(255, 255, 255, 0.5);">© 2025 DragMeHome. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

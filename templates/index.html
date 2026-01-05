@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="landing-hero">
+    <div class="hero-content">
+        <div class="hero-badge">Drag. Drop. Deploy.</div>
+        <h1 class="hero-title">
+            Build Websites<br>
+            <span class="gradient-text">Without Code</span>
+        </h1>
+        <p class="hero-subtitle">
+            Professional drag-and-drop website builder. Create stunning homepages in minutes.
+            Export as HTML, React, Vue, or complete packages.
+        </p>
+        <div class="hero-buttons">
+            <a href="{{ url_for('register') }}" class="btn-hero">Start Building Free</a>
+            <a href="#features" class="btn-hero-outline">See Features</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Components</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Export Formats</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Possibilities</div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="floating-card card-1">
+            <div class="card-icon">📄</div>
+            <div class="card-text">Drag Components</div>
+        </div>
+        <div class="floating-card card-2">
+            <div class="card-icon">🎨</div>
+            <div class="card-text">Customize Design</div>
+        </div>
+        <div class="floating-card card-3">
+            <div class="card-icon">🚀</div>
+            <div class="card-text">Export & Deploy</div>
+        </div>
+    </div>
+</div>
+
+<section id="features" class="features-section">
+    <div class="section-header">
+        <h2 class="section-title">Everything You Need</h2>
+        <p class="section-subtitle">Powerful features for building professional websites</p>
+    </div>
+    
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">✨</div>
+            <h3>Drag & Drop Builder</h3>
+            <p>Intuitive interface that makes building websites as easy as moving blocks around.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">📦</div>
+            <h3>Rich Components</h3>
+            <p>Pre-built heroes, text blocks, images, galleries, forms, and more.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3>Theme Customization</h3>
+            <p>Full control over colors, fonts, spacing, and styling.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3>Responsive Design</h3>
+            <p>Every component is mobile-friendly and looks perfect on all devices.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">💾</div>
+            <h3>Multiple Export Options</h3>
+            <p>Download as HTML, React, Vue, or complete ZIP packages.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Real-time Preview</h3>
+            <p>See your changes instantly as you build and customize.</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="cta-content">
+        <h2>Ready to Build Something Amazing?</h2>
+        <p>Start with our free tier. No credit card required.</p>
+        <a href="{{ url_for('register') }}" class="btn-cta">Create Your First Website</a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - DragMeHome</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .pricing-section {
+            padding: 4rem 2rem;
+            background: var(--bg-secondary);
+        }
+        
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .pricing-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+        
+        .pricing-header p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+        }
+        
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto 4rem;
+        }
+        
+        .pricing-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .pricing-card.featured {
+            border-color: var(--primary);
+            position: relative;
+        }
+        
+        .featured-label {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .pricing-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .price {
+            margin: 1.5rem 0;
+        }
+        
+        .price-amount {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .price-period {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .card-description {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .features-list li {
+            padding: 0.75rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        
+        .features-list .icon {
+            color: var(--success);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .features-list .icon.disabled {
+            color: var(--text-tertiary);
+        }
+        
+        .comparison-section {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+        }
+        
+        .comparison-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .btn-cta {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            text-align: center;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            transition: var(--transition);
+        }
+        
+        .btn-cta:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-cta.secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-cta.secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="brand">
+                <span class="brand-icon">▲</span>
+                <span class="brand-text">DragMeHome</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="{{ url_for('pricing') }}">Pricing</a>
+                {% if session.get('user_id') %}
+                    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                    <a href="{{ url_for('logout') }}" class="btn-secondary">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">Login</a>
+                    <a href="{{ url_for('register') }}" class="btn-primary">Get Started</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="pricing-section">
+        <div class="pricing-header">
+            <h1>Simple, Transparent Pricing</h1>
+            <p>Choose the plan that's right for you</p>
+        </div>
+
+        <div class="pricing-cards">
+            <!-- Free Plan -->
+            <div class="pricing-card">
+                <h2>Free</h2>
+                <div class="price">
+                    <span class="price-amount">$0</span>
+                    <span class="price-period">/month</span>
+                </div>
+                <p class="card-description">Perfect for getting started</p>
+                
+                <ul class="features-list">
+                    <li><span class="icon">✓</span> <span>Up to 3 projects</span></li>
+                    <li><span class="icon">✓</span> <span>10 components per page</span></li>
+                    <li><span class="icon">✓</span> <span>6 basic components</span></li>
+                    <li><span class="icon">✓</span> <span>HTML export</span></li>
+                    <li><span class="icon">✓</span> <span>Drag & drop builder</span></li>
+                    <li><span class="icon">✓</span> <span>Image uploads</span></li>
+                    <li><span class="icon disabled">✗</span> <span>Premium components</span></li>
+                    <li><span class="icon disabled">✗</span> <span>React/Vue export</span></li>
+                </ul>
+                
+                <a href="{{ url_for('register') }}" class="btn-cta secondary">Get Started</a>
+            </div>
+
+            <!-- Pro Plan -->
+            <div class="pricing-card featured">
+                <span class="featured-label">Most Popular</span>
+                <h2>Pro</h2>
+                <div class="price">
+                    <span class="price-amount">$29</span>
+                    <span class="price-period">/month</span>
+                </div>
+                <p class="card-description">For professional builders</p>
+                
+                <ul class="features-list">
+                    <li><span class="icon">✓</span> <span>Unlimited projects</span></li>
+                    <li><span class="icon">✓</span> <span>50 components per page</span></li>
+                    <li><span class="icon">✓</span> <span>18+ premium components</span></li>
+                    <li><span class="icon">✓</span> <span>HTML, React & Vue export</span></li>
+                    <li><span class="icon">✓</span> <span>ZIP download</span></li>
+                    <li><span class="icon">✓</span> <span>Advanced theme controls</span></li>
+                    <li><span class="icon">✓</span> <span>14+ custom fonts</span></li>
+                    <li><span class="icon">✓</span> <span>Full color customization</span></li>
+                </ul>
+                
+                <a href="{{ url_for('register') }}" class="btn-cta">Upgrade to Pro</a>
+            </div>
+        </div>
+
+        <div class="comparison-section">
+            <h2>Feature Comparison</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Free</th>
+                        <th>Pro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Projects</td>
+                        <td>3</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td>Components per page</td>
+                        <td>10</td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td>Basic Components</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Premium Components</td>
+                        <td>✗</td>
+                        <td>✓ (18+)</td>
+                    </tr>
+                    <tr>
+                        <td>HTML Export</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>React Export</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Vue Export</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>ZIP Download</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Image Uploads</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Custom Fonts</td>
+                        <td>3</td>
+                        <td>14+</td>
+                    </tr>
+                    <tr>
+                        <td>Theme Customization</td>
+                        <td>Basic</td>
+                        <td>Advanced</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="brand-icon">▲</span>
+                <span>DragMeHome</span>
+            </div>
+            <p class="footer-text">Build beautiful websites with drag and drop</p>
+            <p class="footer-copyright">&copy; 2025 DragMeHome. Professional website builder.</p>
+        </div>
+    </footer>
+</body>
+</html>
